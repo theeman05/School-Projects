@@ -1,4 +1,4 @@
---[[
+--[[	
 	My version of the RedBlackTree, RedBlackNode.
 	
 	Converted most of the code from https://algs4.cs.princeton.edu/33balanced/RedBlackBST.java.html
@@ -10,6 +10,8 @@
 	@author: dbhs (on Roblox) / theeman05 (on github)
 	
 	Note: If using mutable objects, changed objects must be updated using RedBlackDBTree:Update() to keep structure.
+	
+	Version: 2.00
 --]]
 
 
@@ -160,10 +162,11 @@ do
 		return node
 	end
 	
-	-- Add multiple objects passed as a tuple
+	-- Add multiple objects passed as a tuple or a table. If one element which is a table gets passed, it is assumed the objects within the table should be added.
 	function RedBlackDBTree:AddAll(...)
 		assert(..., NULL_OBJECT_ERROR)
-		for _, object in pairs({...}) do
+		local o1, o2 = ...
+		for _, object in pairs(o2 and {...} or o1) do
 			self:Add(object)
 		end
 	end
@@ -275,7 +278,8 @@ do
 	-- Removes the nodes with the given objects
 	function RedBlackDBTree:RemoveAll(...)
 		assert(..., NULL_OBJECT_ERROR)
-		for _, object in pairs({...}) do
+		local o1, o2 = ...
+		for _, object in pairs(o2 and {...} or o1) do
 			self:Remove(object)
 		end
 	end
