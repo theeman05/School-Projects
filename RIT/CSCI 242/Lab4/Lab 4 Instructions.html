@@ -1,0 +1,722 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0058)https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="./Lab 4 Instructions_files/CSn.css">
+    <link id="cs-style" rel="stylesheet" type="text/css" href="./Lab 4 Instructions_files/dark_cs.css">
+    <script type="application/javascript" src="./Lab 4 Instructions_files/stylesheet_switcher.js.download"></script>
+    <title>CSCI-140/242: Lab 4</title>
+</head>
+<body>
+    <div class="stylesheet-switcher-wrapper">
+        <input type="checkbox" class="stylesheet-switcher" id="toggleNightMode" data-target="cs-style" data-on="https://www.cs.rit.edu/%7Ecsci142/dark_cs.css" data-off="https://www.cs.rit.edu/%7Ecsci142/light_cs.css">
+        <label for="toggleNightMode">Night Mode</label>
+    </div>
+<center>
+    <h1>
+        CSCI140/242: Computer Science AP/X<br>
+        Lab 4 - Toyland
+    </h1>
+</center>
+
+<center>
+    <img src="./Lab 4 Instructions_files/toyland2.png" width="300">
+</center>
+
+<ul>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#introduction">Introduction</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#design">Design</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#requirements">Requirements</a></li>
+    <ul>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#itoy">IToy</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#toy">Toy</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#playdough">PlayDough</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#doll">Doll</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#actionfigure">ActionFigure</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#batterypowered">BatteryPowered</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#rccar">RCCar</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#robot">Robot</a></li>
+    </ul>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#implementation">Implementation</a>
+        <ul>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#starter">Starter Code</a></li>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#inlab">In Lab Activity</a></li>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#lab">Lab Activity</a></li>
+        </ul>
+    </li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#grading">Grading</a></li>
+    
+</ul>
+
+<h2><a name="introduction">Introduction</a></h2>
+
+<p>
+    The toys in <em>ToyLand</em> yearn to be played with.  The more they are played with, the happier
+    they become, until one day they reach their maximum happiness level and retire off
+    to toy heaven.  In this lab you will develop a Java program that leverages inheritance to
+    help the toys achieve their hopes and dreams.
+</p>
+
+<p>
+    Before working on this assignment, you must have completed the problem solving work!
+</p>
+
+<h2><a name="design">Design</a></h2>
+
+<p>
+    As you do the work described in the rest of this document, you must follow the supplied public design
+    for this lab.  This class diagram details all the classes and their relationships.
+</p>
+
+<a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/images/toyland_uml.png" target="_blank&quot;">Class Diagram Popup</a>
+
+<h2><a name="requirements">Requirements</a></h2>
+
+Unlike previous weeks when you were given supporting Javadocs, there are none for this assignment.
+The non-private requirements for the classes are described here and should be reviewed frequently
+as you develop your classes.
+
+<h3><a name="itoy">IToy</a></h3>
+
+<p>
+    <b>IToy</b> is an interface for the public behaviors of <b>Toy</b>.  It is used by
+    the Junit tests, and the main program.
+</p>
+
+<h3><a name="toy">Toy</a></h3>
+
+<p>
+    <b>Toy</b> is the abstract superclass of the toy inheritance hierarchy.  All toys
+    must inherit from it to obtain the following behaviors:
+</p>
+
+<ul>
+    <li>A constructor that takes the product code and name.</li>
+    <li><b>getProductCode()</b>:  Returns the unique integer product code of the toy.</li>
+    <li><b>getName()</b>: Returns the name of the toy.</li>
+    <li><b>getHappiness()</b>:  Returns the toys happiness (starts at INITIAL_HAPPINESS and increases when played with).</li>
+    <li><b>isRetired()</b>:  A toy is retired when its happiness level reaches/exceeds MAX_HAPPINESS (starts as not retired).</li>
+    <li><b>getWear()</b>:  Returns the toys current wear amount (starts at INITIAL_WEAR and increases when played with).</li>
+    <li><b>increaseWear()</b>  Increase the wear by the amount passed in.</li>
+    <li><b>play()</b>: When played with, the following things happen in order:
+        <ol>
+            <li>
+                A playing message is displayed to standard output in the format (## is the number of minutes):
+            <pre>                PLAYING(##): toy-toString
+            </pre>
+            For example:
+            <pre>                PLAYING(40): Toy{PC:100, N:Play-Doh, H:0, R:false, W:0.0}, PlayDough{C:GREEN}
+            </pre>
+            </li>
+            <li>
+                The special play is invoked for the same number of minutes.
+            </li>
+            <li>
+                The happiness of the toy increases by the number of minutes.
+            </li>
+            <li>
+                If the happiness of the toy reaches or exceeds MAX_HAPPINESS, the toy retires
+                and displays a message to standard output in the format:
+            </li>
+            <pre>                RETIRED: toy-toString
+            </pre>
+            For example:
+            <pre>                RETIRED: Toy{PC:100, N:Play-Doh, H:101, R:true, W:5.050000000000001}, PlayDough{C:GREEN}
+            </pre>
+        </ol>
+    </li>
+    <li><b>specialPlay()</b> Each toy has its own defined behavior when being played with and is therefore abstract here.</li>
+    <li>
+        <b>toString()</b>:  Returns a string representation of the toy in the format (must be exact):
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}
+        </pre>
+        <ul>
+            <li><b>PC</b> for product code</li>
+            <li><b>N</b> for name</li>
+            <li><b>H</b> for current happiness</li>
+            <li><b>R</b> for retired (true or false)</li>
+            <li><b>W</b> for current wear</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:100, N:Play-Doh, H:40, R:false, W:2.0}
+        </pre>
+    </li>
+</ul>
+
+<h3><a name="playdough">PlayDough</a></h3>
+
+<b>PlayDough</b> is a concrete class that inherits from <b>Toy</b>.  It has the following behaviors:
+
+<ul>
+    <li>A constructor that takes the name and color (specified with the <b>Color</b> enum).  The unique product code starts at 100 and increases
+    by 1 each time a new one is created.</li>
+    <li><b>getColor()</b>:  Returns the color.</li>
+    <li>
+        <b>specialPlay()</b>:  The following things happen in order:
+        <ol>
+            <li>
+                A tab indented, <tt>"\t"</tt>, message is displayed to standard output in the format:
+            <pre>                Arts and crafting with {color} {name}
+            </pre>
+            For example:
+            <pre>                Arts and crafting with GREEN Play-Doh
+            </pre>
+            </li><li>The wear increases by a multiple of <tt>WEAR_MULTIPLIER * time</tt>.</li>
+        </ol>
+    </li>
+    <li>
+        <b>toString()</b>:  Returns a string representation in the format:
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}, PlayDough{C:?}
+        </pre>
+        <ul>
+            <li>The Toy part of the string comes from <b>Toy</b>'s <b>toString()</b></li>
+            <li><b>C</b> for the color</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:100, N:Play-Doh, H:40, R:false, W:2.0}, PlayDough{C:GREEN}
+        </pre>
+    </li>
+</ul>
+
+<h3><a name="doll">Doll</a></h3>
+
+<b>Doll</b> is a concrete class that inherits from <b>Toy</b>.  It has the following behaviors:
+
+<ul>
+    <li>A constructor that takes the name, hair color, age and spoken catchphrase.
+        The unique product code starts at 200 and increases
+        by 1 each time a new one is created.</li>
+    <li>A constructor used by subclass <b>ActionFigure</b> that takes its product code plus all the same arguments as the first constructor.</li>
+    <li><b>getHairColor()</b>:  Returns the hair color.</li>
+    <li><b>getAge()</b>:  Returns the age.</li>
+    <li><b>getSpeak()</b>:  Returns the catchphrase.</li>
+    <li>
+        <b>specialPlay()</b>:  The following things happen in order:
+        <ol>
+            <li>
+                A tab indented, <tt>"\t"</tt>, message is displayed to standard output in the format:
+                <pre>                    {name} brushes their {hair color} hair and says, "{speak}"
+                </pre>
+                For example:
+                <pre>                    GabbyGabby brushes their RED hair and says, "Will_you_be_my_friend?"
+                </pre>
+            </li><li>The wear increases by the age.</li>
+        </ol>
+    </li>
+    <li>
+        <b>toString()</b>:  Returns a string representation in the format:
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}, Doll{HC:?, A:?, S:?}
+        </pre>
+        <ul>
+            <li>The Toy part of the string comes from <b>Toy</b>'s <b>toString()</b></li>
+            <li><b>HC</b> for the hair color</li>
+            <li><b>A</b> for the age</li>
+            <li><b>S</b> for the speak</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:200, N:GabbyGabby, H:101, R:true, W:18.0}, Doll{HC:RED, A:6, S:Will_you_be_my_friend?}
+        </pre>
+    </li>
+</ul>
+
+<h3><a name="actionfigure">ActionFigure</a></h3>
+
+<b>ActionFigure</b> is a concrete class that inherits from <b>Doll</b>.  It has the following behaviors:
+
+<ul>
+    <li>A constructor that takes the name, age and spoken catchphrase.  All action figures
+        have HAIR_COLOR (orange) hair.  The unique product code starts at 300 and increases
+        by 1 each time a new one is created.
+    </li>
+    <li><b>getEnergyLevel()</b>:  Returns the energy level (starts at MIN_ENERGY_LEVEL and increases when played with).</li>
+    <li>
+        <b>specialPlay()</b>:  The following things happen in order:
+        <ol>
+            <li>
+                A tab indented, <tt>"\t"</tt>, message is displayed to standard output in the format
+                (where the energy forumla is computed as: <tt>energy * time)</tt>:
+                <pre>                    {name} kung foo chops with {energy-formula} energy!
+                </pre>
+                For example:
+                <pre>                    He-man kung foo chops with 46 energy!
+                </pre>
+
+            </li><li>The energy is increased by 1.</li>
+            <li>The special play of <b>Doll</b> is called.</li>
+        </ol>
+    </li>
+    <li>
+        <b>toString()</b>:  Returns a string representation in the format:
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}, Doll{HC:?, A:?, S:?}, ActionFigure{E:?}
+        </pre>
+        <ul>
+            <li>The Toy part of the string comes from <b>Toy</b>'s <b>toString()</b></li>
+            <li>The Doll part of the string comes from <b>Doll</b>'s <b>toString()</b></li>
+            <li><b>E</b> for the energy</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:300, N:He-man, H:63, R:false, W:60.0}, Doll{HC:ORANGE, A:30, S:By_the_power_of_Grayskull!}, ActionFigure{E:3}
+        </pre>
+    </li>
+</ul>
+
+<h3><a name="batterypowered">BatteryPowered</a></h3>
+
+<p>
+    <b>BatteryPowered</b> is an abstract subclass of <b>Toy</b>.  <b>RCCar</b> and <b>Robot</b>
+    inherit from this class to obtain its state and behaviors.
+</p>
+
+<ul>
+    <li>A constructor that takes the product code, name and number of batteries.</li>
+    <li><b>getBatteryLevel()</b>:  Returns the current battery level (starts at FULLY_CHARGED).</li>
+    <li><b>getNumBatteries()</b>: Returns the number of batteries.</li>
+    <li><b>useBatteries()</b>: When played with the batteries are used and the following things happen in order:
+        <ol>
+            <li>
+                The battery level is reduced by: <tt>time + number-of-batteries.</tt>
+            </li>
+            <li>
+                If the battery level is depleted, the following happens in order:
+            </li>
+            <ol>
+                <li>The battery level is capped at DEPLETED</li>
+                <li>
+                    A tab indented, <tt>"\t"</tt>, depletion message is displayed in the format:
+                </li>
+                <pre>                    DEPLETED:toy-toString
+                </pre>
+                <li>The battery level is restored to FULLY_CHARGED.</li>
+                <li>
+                    A tab indented, <tt>"\t"</tt>, recharge message is displayed in the format:
+                    <pre>                    RECHARGED:toy-toString
+                    </pre>
+                </li>
+            </ol>
+        </ol>
+    </li>
+    <li>
+        <b>toString()</b>:  Returns a string representation in the format:
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}, BatteryPowered{BL:?, NB:?}
+        </pre>
+        <ul>
+            <li>The Toy part of the string comes from <b>Toy</b>'s <b>toString()</b></li>
+            <li><b>BL</b> for the battery level</li>
+            <li><b>NB</b> for the number of batteries</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:300, N:Herbie, H:101, R:true, W:45.0}, BatteryPowered{BL:100, NB:4}
+        </pre>
+    </li>
+</ul>
+
+<h3><a name="rccar">RCCar</a></h3>
+
+<b>RCCar</b> is a concrete class that inherits from <b>BatteryPowered</b>.  It has the following behaviors:
+
+<ul>
+    <li>A constructor that takes the name and number of batteries.  The unique product code starts at 400 and increases
+        by 1 each time a new one is created.
+    </li>
+    <li><b>getSpeed()</b>:  Returns the current speed (starts at STARTING_SPEED and increases when played with).</li>
+    <li>
+        <b>specialPlay()</b>:  The following things happen in order:
+        <ol>
+            <li>
+                A tab indented, <tt>"\t"</tt>, message is displayed to standard output in the format:
+                <pre>                    {name} races around at {speed}mph!
+                </pre>
+                For example:
+                <pre>                    Herbie races around at 10mph!
+                </pre>
+            </li><li>The batteries are used for the amount of time.</li>
+            <li>The wear increases by the current speed.</li>
+            <li>The speed increases by SPEED_INCREASE.</li>
+        </ol>
+    </li>
+    <li>
+        <b>toString()</b>:  Returns a string representation in the format:
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}, BatteryPowered{BL:?, NB:?}, RCCar{S:?}
+        </pre>
+        <ul>
+            <li>The Toy part of the string comes from <b>Toy</b>'s <b>toString()</b></li>
+            <li>The BatteryPowered part of the string comes from <b>BatteryPowered</b>'s <b>toString()</b></li>
+            <li><b>S</b> for the speed</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:400, N:Herbie, H:40, R:false, W:10.0}, BatteryPowered{BL:56, NB:4}, RCCar{S:15}
+        </pre>
+    </li>
+</ul>
+
+<h3><a name="robot">Robot</a></h3>
+
+<b>Robot</b> is a concrete class that inherits from <b>BatteryPowered</b>.  It has the following behaviors:
+
+<ul>
+    <li>A constructor that takes the name, number of batteries and whether it flies or not.  The unique product code starts at 500 and increases
+        by 1 each time a new one is created.
+    </li>
+    <li><b>isFlying()</b>:  Returns whether it flies or not.</li>
+    <li><b>getDistance()</b>:  Returns the total distance traveled when played with (starts at INITIAL_SPEED).</li>
+    <li>
+        <b>specialPlay()</b>:  The following things happen in order:
+        <ol>
+            <li>If flying:</li>
+            <ol>
+                <li>The distance is increased by <tt>time * FLY_SPEED</tt></li>
+                <li>
+                A tab indented, <tt>"\t"</tt>, message is displayed to standard output in the format:
+                <pre>                    {name} is flying around with total distance: {distance}
+                </pre>
+                For example:
+                <pre>                    Voltron is flying around with total distance: 2675
+                </pre>
+                </li>
+                <li>The wear increases by FLY_SPEED</li>
+            </ol>
+            <li>If not flying:</li>
+            <ol>
+                <li>The distance is increased by <tt>time * RUN_SPEED</tt></li>
+                <li>
+                    A tab indented, <tt>"\t"</tt>, message is displayed to standard output in the format:
+                    <pre>                    {name} is running around with total distance: {distance}
+                </pre>
+                    For example:
+                    <pre>                    Wall-E is running around with total distance: 700
+                </pre>
+                </li>
+                <li>The wear increases by RUN_SPEED</li>
+            </ol>
+            <li>The batteries are used for the amount of time.</li>
+        </ol>
+    </li>
+    <li>
+        <b>toString()</b>:  Returns a string representation in the format:
+        <pre>            Toy{PC:?, N:?, H:?, R:?, W:?}, BatteryPowered{BL:?, NB:?},  Robot{F:?, D:?}
+        </pre>
+        <ul>
+            <li>The Toy part of the string comes from <b>Toy</b>'s <b>toString()</b></li>
+            <li>The BatteryPowered part of the string comes from <b>BatteryPowered</b>'s <b>toString()</b></li>
+            <li><b>F</b> for flying or not (true or false)</li>
+            <li><b>D</b> for distance</li>
+        </ul>
+        For example:
+        <pre>            Toy{PC:503, N:IronGiant, H:73, R:false, W:50.0}, BatteryPowered{BL:3, NB:12}, Robot{F:true, D:1825}
+        </pre>
+    </li>
+</ul>
+
+<h2><a name="implementation">Implementation</a></h2>
+
+<h3><a name="starter">Starter Code</a></h3>
+
+<ol>
+    <li>
+        Open the GitHub classroom link for your section in a browser and accept the assignment.
+        Once accepted, close the browser.  <b>Do not download a zip of the starter code from GitHub!
+        You must clone it in IntelliJ!</b>
+    </li>
+    <li>
+        Open IntelliJ and go to the splash screen (<b>File -&gt; Close Project</b> if it opened a prior project)
+    </li>
+    <li>
+        With <tt>Project</tt> selected, click <bb>Checkout from VCS</bb>.
+    </li>
+    <li>Select <b>GitHub</b>.  Your username should already be set up.</li>
+    <li>
+        Select the repository you just created and pick a location on your machine.  Click the <tt>Clone</tt>
+        button to check it out.
+    </li>
+</ol>
+
+<p>
+    You should see the following in the project window:
+</p>
+
+<img src="./Lab 4 Instructions_files/project_structure_initial.png" <="" img="">
+
+<p>
+    There are three packages in the <b>src</b> folder:
+</p>
+
+<ul>
+    <li>
+        <b>test</b>: JUnit test files for the five toys.
+    </li>
+    <li>
+        <b>toyland</b>: The package for the main program, <b>Toyland</b>.
+    </li>
+    <li>
+        <b>toys</b>:  The entire inheritance hierarchy for the toys,
+            along with a <b>ToyFactor</b> for making the toys.
+    </li>
+</ul>
+
+<p>
+    You are being provided with all the run configurations for running the main
+    program, and running all the JUnit tests for the toy hierarchy.
+</p>
+
+<img src="./Lab 4 Instructions_files/run_configurations.png" <="" img="">
+
+<h3><a name="inlab">In-Lab Activity</a></h3>
+
+<p>
+    The goal of the In-Lab activity is to begin developing the toy hierarchy.  You
+    are required to fully implement:
+</p>
+
+<ul>
+    <li>
+        <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#itoy" target="_blank">IToy</a>: The public Toy interface used by the JUnit tests,
+        the toy factory, and the main program.
+    </li>
+    <li>
+        <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#toy" target="_blank">Toy</a>:  The abstract superclass of the entire toy hierarchy.
+    </li>
+    <li>
+        <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#playdough" target="_blank">PlayDough</a>:  A concrete toy that can be made and played with.
+    </li>
+</ul>
+
+<p>
+    In addition, you will be required to stub out the remaining classes in the Toy hierarchy
+    so that all the JUnit tests run.
+</p>
+
+<p>
+    Stubbing means we only care about providing the correct
+    signatures of the public methods the tester uses.  We do not care about making
+    this class function correctly yet.  That will come later once we can compile cleanly.
+    Do not worry about adding state to these classes yet.  Using the provided UML
+    class diagram in the <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#design">design</a> section above, <b>stub out all the concrete
+    toy classes</b>.
+
+</p><ul>
+    <li>
+        Constructors and methods that do not return anything do not need any code in their body and
+        can remain empty.
+    </li>
+    <li>
+        Methods that return something need a single statement that returns something in order to compile.
+        It is suggested you return the following based on the return type:
+        <ul>
+            <li>For integers and doubles return <tt>0</tt></li>
+            <li>For booleans return <tt>false</tt></li>
+            <li>For objects, e.g. <tt>String</tt>, return <tt>null</tt></li>
+        </ul>
+    </li>
+</ul>
+
+<p>
+    Your final project structure should look like the following
+    when finished:
+</p>
+
+<img src="./Lab 4 Instructions_files/project_structure_final.png" <="" img="">
+
+<p>
+    Only <b>TestPlayDough</b> is required to run correctly
+    and it is expected to pass all tests.
+</p>
+
+<img src="./Lab 4 Instructions_files/test_play_dough.png" <="" img="">
+
+<p>
+    Keep in mind that only the public behaviors and constants are being provided you
+    in the <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#design" target="_blank">Design</a>.  You must provide the
+    private state on your own.
+</p>
+
+<p>
+    Also one final note about the JUnit tests.  Because of the statics that are used for
+    the product codes, you should not run the entire suite of tests together.  Only run
+    each test individually or else you will see some differences.
+</p>
+
+<h5>Design Reminder</h5>
+
+<p>
+    The <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/images/toyland_uml.png" target="_blank">UML class diagram</a> gives you
+    direct hints about where to put your private state.  The presence of an accessor and/or
+    mutator means the private state must go in that class.  <b>It is very important
+    that you do not replicate state in subclasses!  For example, the name of each
+    toy belongs in the <b>Toy</b> class.  If it needs to be accessed (or modified)
+    in a subclass, the subclass should use the appropriate superclass accessor/mutator.</b>
+</p>
+
+<p>
+    <b style="color:red">The use of <tt>instanceof</tt> anywhere in this assignment is strictly prohibited!</b>
+        The natural polymorphic behavior of the toys must be adhered to throughout the entire
+        implementation.
+</p>
+
+<h4>In-Lab Submission</h4>
+
+<p>
+    Make sure you commit and push your work to GitHub once you finish the in-lab.
+</p>
+
+<p>
+    Once you have completed implementing <b>IToy</b>, <b>Toy</b> and <b>PlayDough</b>,
+    you should zip up your entire <tt>src</tt> folder,
+    name it <tt>lab4-inlab.zip</tt>, and submit it to the dropbox on MyCourses by the due date.
+</p>
+
+<h3><a name="lab">Lab Activity</a></h3>
+
+<p>
+    The full lab implementation is broken into two parts:
+</p>
+
+<ul>
+    <li>Finish implementing the remaining toys in the hierarchy.</li>
+    <li>Complete the main program that runs the simulation.</li>
+</ul>
+
+<h4>Completing the Toy Hierarchy</h4>
+
+<p>
+    We suggest you follow this order for completing the toy hierarchy.  As you develop
+    each new class make sure to verify it with the corresponding JUnit test before
+    moving on to the next class.
+</p>
+
+<ol>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#doll" target="_blank">Doll</a>:  Tested by <b>TestDoll</b></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#actionfigure" target="_blank">ActionFigure</a>:  Tested by <b>TestActionFigure</b></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#batterypowered" target="_blank">BatteryPowered</a>:  Abstract superclass inherited by <b>RCCar</b>
+    and <b>Robot</b></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#rccar" target="_blank">RCCar</a>:  Tested by <b>TestRCCar</b></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/Toyland.html#robot" target="_blank">Robot</a>:  Tested by <b>TestRobot</b></li>
+</ol>
+
+<h4>Completing the ToyLand</h4>
+
+<p>
+    The next activity is finishing the implementation of the main program, <b>Toyland</b>,
+    so the toys can be created and played with.
+</p>
+
+<p>
+    The <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/data" target="_blank">data</a> directory contains various data files representing the various
+    toys used in the simulation.
+</p>
+
+<img src="./Lab 4 Instructions_files/data_files.png" <="" img="">
+
+<p>
+    The <a href="https://www.cs.rit.edu/~csapx/Labs/04-Toyland/output" target="_blank">output</a> directory contains the expected outputs for each
+    data file.
+</p>
+
+<img src="./Lab 4 Instructions_files/output_files.png" <="" img="">
+
+<p>
+    As mentioned earlier, there are run configurations provided to you that run with each of the
+    toy data files.
+</p>
+
+<p>
+    Look over the code provided for <b>Toyland</b> (in the <b>toyland</b> package).  It already does
+    the work of reading the toy file from the command line and creating them.  You need to implement
+    the <b>playTime()</b> and <b>displayStatistics()</b> methods.
+</p>
+
+<p>
+    Be very careful here!  You should only be using <b>IToy</b> in your implementation!  The main
+    program is only aware of this interface.  It is intentionally unfamiliar with any
+    of the actual toys in the hierarchy.
+</p>
+
+<h4>Creating Your Own Toy!</h4>
+
+<p>
+    For the final part of the lab, you will create your very own type of toy.  The only requirement
+    is that it fits somewhere into the existing toy hierarchy you just finished developing.  Also it
+    goes without saying but please make your own toy appropriate and non-offensive.
+</p>
+
+<ul>
+    <li>
+        Decide what type of toy you want to create.  Think about what kind of state and special
+        play behavior it will have.
+    </li>
+    <li>
+        Create your new toy by completely implementing it.
+    </li>
+    <li>
+        In order to test your toy, you will need to make a data file for it.  Please use the provided
+        <tt>mytoy-5.txt</tt> file in the <b>data</b> directory to add your data in.  You will specify
+        five different instances of this toy.  Take a look at the other input files to get an idea of
+        the format.  The first string must be the name of your toy, followed by its properties.
+    </li>
+    <li>
+        In order to test your new toy, you should use the provided run configuration
+        <b>Toyland mytoy-5.txt</b>.   When you first run this you will run into problems
+        because all the toys are null.  This is because the toy factory does not initially recognize
+        your new toy.
+    </li><li>
+        To fix this you need to make two additions to <b>ToyFactory</b> in the <b>toys</b> package.
+        <ul>
+            <li>
+                Add your new toy type to the end of the <b>ToyType</b> enum.  The name of the
+                enum should match the first strings in the data file.  You should use all
+                capitalization.
+            </li>
+            <li>
+                In the factory method, <b>makeToy</b>, you should add a case to deal with
+                creating your new toy when a line is encountered that specifies it.
+            </li>
+        </ul>
+    </li>
+    <li>
+        When finished, you should be able to create five of your toys, play with them until
+        they are retired, and then display statistics about them.
+    </li>
+</ul>
+
+<h4>Lab Submission</h4>
+
+<p>
+    Because this is a much larger assignment, we expect more commits.  Ideally you should
+    commit and push each time you complete one of the concrete classes and pass all its
+    tests.
+</p>
+
+<p>
+    You need to make sure you create a zip file that contains both your <tt>src</tt> folder,
+    as well as your <tt>mytoy-5.txt</tt> data file.  If you are unsure of how to do this,
+    first create a new folder on your computer.  First copy the entire <tt>src</tt> directory
+    into it, and then copy your new data file into it.  From there you can zip up that new
+    directory.
+</p>
+
+<p>
+    Name the zip file <tt>lab4.zip</tt> and submit it to the dropbox on MyCourses by the due date.
+</p>
+
+<h2><a name="grading">Grading</a></h2>
+
+The grade breakdown for this lab is as follows:
+
+<ul>
+    <li>Problem Solving: 15%</li>
+    <li>In-Lab Activity: 10%</li>
+    <li>Design: 20%</li>
+    <li>Functionality: 45%</li>
+        <ul>
+            <li>PlayDough: 5%</li>
+            <li>Doll: 5%</li>
+            <li>ActionFigure: 5%</li>
+            <li>RCCar: 5%</li>
+            <li>Robot: 5%</li>
+            <li>Your New Toy: 10%</li>
+            <li>Toyland: 10%</li>
+        </ul>
+    <li>Code Style, Documentation and Version Control: 10%</li>
+</ul>
+
+
+
+<div id="torrent-scanner-popup" style="display: none;"></div></body></html>
