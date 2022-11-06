@@ -1,0 +1,50 @@
+.body {
+    background: white;
+}
+.code {
+    font-family: "Courier New", monospace;
+    white-space: nowrap;
+}
+
+.red-bold {
+    color: red;
+    font-weight: bold;
+}
+
+table, th, td {
+    /* border: 1px solid black; */
+    padding: 2px;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #d8e8f9;
+    color: black;
+    text-align: left;
+    padding: 5px;
+}
+
+tr td:first-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+table.output {
+    width: auto;
+}
+
+table.output td {
+    font-family: "Courier New", monospace;
+    width: auto;
+    white-space: normal;
+}
+
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+li {
+    margin: 5px;
+}

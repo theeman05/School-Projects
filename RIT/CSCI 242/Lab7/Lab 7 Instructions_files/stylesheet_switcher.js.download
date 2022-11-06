@@ -1,0 +1,42 @@
+function switchStyleSheet(checked, target, on, off) {
+    if(checked) {
+        target.setAttribute("href", on);   
+    } else {
+        target.setAttribute("href", off);   
+    }
+}
+
+function initialize() {
+    // I am so sorry for this.
+    document.body.innerHTML = `
+    <div class="stylesheet-switcher-wrapper">
+        <input type="checkbox" 
+            class="stylesheet-switcher" 
+            id="toggleNightMode" 
+            data-target="cs-style" 
+            data-on="https://www.cs.rit.edu/%7Ecsci142/dark_cs.css" 
+            data-off="https://www.cs.rit.edu/%7Ecsci142/light_cs.css">
+        <label for="toggleNightMode">Night Mode</label>
+    </div>` + document.body.innerHTML;
+
+
+    var switchers = document.getElementsByClassName("stylesheet-switcher")
+
+    for(var i = 0; i < switchers.length; i++) {
+        var d = switchers[i];
+        var checked = d.checked;
+        var target = document.getElementById(d.getAttribute("data-target"));
+        var on = d.getAttribute("data-on");
+        var off = d.getAttribute("data-off");
+        switchers[i].onclick = function(checked, target, on, off) { 
+
+            return function() {
+                switchStyleSheet(d.checked, target, on, off)
+            }
+        } (d, target, on, off)
+
+        switchStyleSheet(d.checked, target, on, off);
+    }
+}
+
+window.onload = initialize

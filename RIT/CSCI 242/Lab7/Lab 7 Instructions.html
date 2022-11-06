@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0058)https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="./Lab 7 Instructions_files/CSn.css">
+    <link id="cs-style" rel="stylesheet" type="text/css" href="./Lab 7 Instructions_files/light_cs.css">
+    <script type="application/javascript" src="./Lab 7 Instructions_files/stylesheet_switcher.js.download"></script>
+    <title>CSCI-140/242: Lab 7</title>
+</head>
+<body>
+    <div class="stylesheet-switcher-wrapper">
+        <input type="checkbox" class="stylesheet-switcher" id="toggleNightMode" data-target="cs-style" data-on="https://www.cs.rit.edu/%7Ecsci142/dark_cs.css" data-off="https://www.cs.rit.edu/%7Ecsci142/light_cs.css">
+        <label for="toggleNightMode">Night Mode</label>
+    </div>
+<center>
+    <h1>
+        CSCI140/242: Computer Science AP/X<br>
+        Lab 7 - Magnets
+    </h1>
+</center>
+
+<center>
+    <img src="./Lab 7 Instructions_files/magnets-pss.png" width="600">
+</center>
+
+<ul>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#introduction">Introduction</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#design">Design</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#documentation">Documentation</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#inlab">In-Lab Activity</a>
+        <ul>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#getting-started">Getting Started</a></li>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#loading-puzzle">Loading a Puzzle</a></li>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#verify-puzzle">Verifying a Puzzle</a></li>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#successors">MagnetsConfig: getSuccessors()</a></li>
+            <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#inlab-submission">In-Lab Submission</a></li>
+        </ul>
+    </li><li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#lab-activity">Lab Activity</a>
+    <ul>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#main-program">Main Program: Magnets</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#is-valid">MagnetsConfig: isValid()</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#is-goal">MagnetsConfig: isGoal()</a></li>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#lab-submission">In-Lab Submission</a></li>
+    </ul>
+    </li><li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#backtracking-resources">Backtracking Resources</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#extra_credit">Extra Credit</a></li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/Magnets.html#grading">Grading</a></li>
+    
+</ul>
+
+<h2><a name="introduction">Introduction</a></h2>
+
+<p>
+We are given a rectangular shaped board and a set of domino-shaped bipolar magnets.  The
+objective is to place magnets on the board in order to satisfy a set of conditions.
+</p>
+
+<ul>
+<li>
+    Each <tt>2 x 1</tt> or <tt>1 x 2</tt> grid in the board can contain a magnet (red <b></b><tt style="color:red;">+</tt>
+    for positive, black <b><tt>-</tt></b> for negative) or be blank (green <b><tt style="color:green;">X</tt></b>'s).
+</li>
+<li>
+    The digits along the board's left and top sides represent the count of <b></b><tt style="color:red;">+</tt> signs in
+    corresponding rows or columns.
+</li>
+<li>
+    Likewise, the digits along the boards right and bottom sides represent the count of <b><tt>-</tt></b>
+    squares in corresponding rows or columns.
+</li>
+<li>
+    Rows and columns for which no number is mentioned can have any number of <b></b><tt style="color:red;">+</tt>
+    or <b><tt>-</tt></b> signs.
+</li>
+<li>
+    The solution must also satisfy the constraint that no two adjacent {\em orthogonal} squares
+(north, south, east and west) can have the same sign.
+</li>
+</ul>
+
+<h2><a name="design">Design</a></h2>
+
+<a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/images/magnets_uml.png" target="_blank&quot;">Class Diagram Popup</a>
+
+<p>
+You will be focused on implementing the <b>MagnetsConfig</b> class in the <b>magnets</b> package.
+It is strongly suggested you add private helper methods to cut down on the length of the
+individual methods, e.g. (<tt>isValid()</tt> in particular.
+</p>
+
+<h2><a name="documentation">Documentation</a></h2>
+
+<p>
+    The public documentation for the provided classes and methods is
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc" target="_blank">here</a>.
+</p>
+
+<h2><a name="inlab">In-Lab Activity</a></h2>
+
+<h3><a name="getting-started">Getting Started</a></h3>
+
+<h4>Accept GitHub Classroom Assignment</h4>
+
+<p>
+    Go to the link for your section in a browser and accept it.  Close out the browser.
+</p>
+
+<h4>Checking Out a New GitHub Assignment in IntelliJ</h4>
+<p>
+    Go to the splash screen in IntelliJ and check out the assignment from version control.
+    Select the GitHub repository that was just created for you and find a suitable place
+    on your computer to store your project locally.  Now clone the repository.
+</p>
+
+<h4>Project Structure</h4>
+
+<p>
+    Your project structure will look like the following:
+</p>
+
+<img src="./Lab 7 Instructions_files/project_structure.png" width="250">
+
+<p>
+The organization is as follows:
+</p>
+
+<ul>
+   <li>
+       <b>data</b>:  Magnet puzzle test files
+   </li>
+    <li>
+       <b>output</b>:  Instructor solution outputs for magnet puzzle files
+    </li>
+    <li>
+        <b>src</b>: Top level directory of source code
+        <ul>
+            <li>
+                <b>backtracking</b>:  Package for the
+                <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/backtracking/Backtracker.html" target="_blank">backtracking algorithm</a>
+                    and
+                 <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/backtracking/Configuration.html" target="_blank">configuration interface</a>.
+            </li>
+            <li>
+                <b>magnets</b>:  The
+                <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/Magnets.html" target="_blank">main program</a>
+                and
+                <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html" target="_blank">Magnet specific configuration class</a>.
+            </li>
+            <li>
+                <b>test</b>:  JUnit 5 test program and
+                <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/test/IMagnetTest.html" target="_blank">test interface</a>
+                for the In-Lab activity.
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<p>
+    As mentioned in the design section, you should only be modifying
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html" target="" _blank"="">MagnetsConfig</a>.
+    All other source code should not be modified.
+</p>
+
+<h4>Puzzle File Format</h4>
+
+<p>
+    The puzzles provided in the
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/data" target="_blank">data/</a>
+    directory use a standard format that you
+    should follow when loading a puzzle.  The format is:
+</p>
+
+<pre>    M(#rows) N(#columns)
+    positive_row_counts
+    positive_column_counts
+    negative_row_counts
+    negative_column_counts
+    M x N grid of pairings: L(eft), R(ight), T(op) or B(ottom)
+</pre>
+
+<p>
+    Take a look at
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/data/magnets-12.txt" target="_blank">data/magnets-12.txt</a>:
+</p>
+
+<pre>    5 6
+    2 3 -1 -1 -1
+    1 -1 -1 2 1 -1
+    -1 -1 -1 1 -1
+    2 -1 -1 2 -1 3
+    L R L R T T
+    L R L R B B
+    T T T T L R
+    B B B B T T
+    L R L R B B
+</pre>
+
+<p>
+    This corresponds to the following magnets puzzle:
+</p>
+
+<img src="./Lab 7 Instructions_files/magnets-pss-q1.png" width="275">
+
+<ul>
+    <li>
+        The puzzle is 5 rows by 6 columns
+    </li>
+    <li>
+        The positive row count values go from top (row 0) to bottom (row 4).
+        A value of -1 means there is no check - the count can be anything.
+    </li>
+    <li>
+        The positive column count values go from left (column 0) to right (column 5).
+        A value of -1 means there is no check - the count can be anything.
+    </li>
+    <li>
+        The negative row count values go from top (row 0) to bottom (row 4).
+        A value of -1 means there is no check - the count can be anything.
+    </li>
+    <li>
+        The megative column count values go from left (column 0) to right (column 5).
+        A value of -1 means there is no check - the count can be anything.
+    </li>
+    <li>
+        The 5x6 pairs are laid out in the exact same dimensions as the board.
+    </li>
+</ul>
+
+<p>
+    You can expect a single space to separate all elements, and a new line to terminate each line.
+    The format of the files is guaranteed to be exactly correct.  All values will be present
+    and each pair will either be <em>L-R</em> or <em>T-B</em>.
+</p>
+
+<h4>Run Configurations</h4>
+
+<p>
+    There are many run configurations provided to you.  The smaller puzzles have
+    two run configurations - one debug printing disabled (false), and the other with debug printing
+    enabled (true).
+</p>
+
+<img src="./Lab 7 Instructions_files/run_configurations.png" width="250">
+
+
+<h3><a name="loading-puzzle">Loading a Puzzle File</a></h3>
+
+<p>
+    The first goal is to load a puzzle file and display all the information about it.
+    This should all be done in
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html#%3Cinit%3E(java.lang.String)" target="_blank">MagnetConfig's constructor</a>.
+    Take a look at the first part of the output for
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/output/magnets-12-out.txt" target="_blank">output/magnets-12-out.txt</a>:
+</p>
+
+<pre>    File: data/magnets-12.txt
+    Rows: 5, Columns: 6
+    Pairs:
+    L R L R T T
+    L R L R B B
+    T T T T L R
+    B B B B T T
+    L R L R B B
+    Initial config:
+    + 1     2 1
+      -----------
+    2|. . . . . .|
+    3|. . . . . .|
+     |. . . . . .|
+     |. . . . . .|1
+     |. . . . . .|
+      -----------
+      2     2   3  -
+</pre>
+
+<p>
+    You will need to define all the private state to represent your puzzle.  Recall the last
+    question from <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/pss.pdf" target="_blank">problem solving</a>.   Most of the state
+    here is the same for all instances and should be declared <tt>static</tt>.
+    But make sure the board grid of current cell values and the cursor position are <b>not static!</b>.
+</p>
+
+<p>
+    You should use a
+    <a href="https://www.cs.rit.edu/usr/local/jdk/docs/api/java.base/java/io/BufferedReader.html" target="_blank">BufferedReader</a>
+    and <em>try-with-resources</em> to open the puzzle file and read the lines.
+</p>
+
+<p>
+    Initially the board is empty and populated with the <tt>.</tt> character.  A fully implemented
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html#toString()" target="_blank">MagnetsConfig toString()</a>
+    is given to you.  In order for it to work correctly, your must implement all of the
+    methods in the
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/test/IMagnetTest.html" target="_blank">IMagnetTest</a> interface.
+</p>
+
+<h3><a name="verify-puzzle">Verifying a Puzzle</a></h3>
+
+<p>
+    To make sure you can load the puzzle and store/recall all the data, a JUnit 5 test program
+    is being provided to you for the in-lab activity, <b>TestMagnetsInLab</b> in the
+    <b>test</b> package.  The first method, <b>testLoad()</b>, makes sure that everything
+    you implemented in your constructor is working correctly.  Before moving on
+    to the final part of the in-lab, make sure this first test works.  The other
+    two tests for successors will fail for now.
+</p>
+
+<h3><a name="successors">MagnetsConfig: getSuccessors()</a></h3>
+
+<p>
+    The final step for the in-lab activity is implementing the successor generation in
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html#getSuccessors()" target="_blank">MagnetsConfig's getSuccessors()</a>
+    method.
+</p>
+
+<p>
+    The order you generate the successors must follow exactly what you saw in problem solving.  When
+    generating a successor, three new configurations will be generated in the next cursor
+    position (left to right and top to bottom) in the order:
+</p>
+
+<ol>
+    <li>positive cell, +</li>
+    <li>negative cell, -</li>
+    <li>blank cell, X</li>
+</ol>
+
+<p>
+    You should use the provided copy constructor to make the actual copies.
+</p>
+
+<p>
+    When finished, the last two test methods <b>testSuccessors1()</b> and
+    <b>testSuccecesors2()</b> should pass all tests.
+</p>
+
+
+<h3><a name="inlab-submission">In-Lab Submission</a></h3><a name="inlab-submission">
+
+<p>
+    Once you pass all the JUnit tests you should commit and push your work before continuing on with the
+    lab implementation.
+</p>
+
+<p>
+    Upload your single <tt>MagnetsConfig.java</tt>
+    file to the MyCourses dropbox by the due date (there is no need to zip it).
+</p>
+
+<hr>
+
+</a><h2><a name="inlab-submission"></a><a name="lab-activity">Lab Activity</a></h2>
+
+<h3><a name="main-program">Main Program: Magnets</a></h3>
+
+<p>
+    You can now focus on completing the lab and being able to solve the magnet puzzles.
+    The main program, <b>Magnets</b>, is in the <b>magnets</b> package.
+</p>
+
+<h4>Command Line Arguments</h4>
+
+<p>
+    The main program runs with two required command line arguments, the file name
+    and whether you want debug printing enabled or not.
+</p>
+
+<pre>    Usage: java Magnets <i>filename</i> <i>debug</i>
+</pre>
+
+<h4>Main Program Details</h4>
+
+<p>
+    The main program is fully provided to you and should not be modified.  It does
+    the following things, in order:
+</p>
+
+<ul>
+    <li>
+        Creates the initial configuration with the filename.
+    </li>
+    <li>
+        Creates the backtracker with the debug flag.
+    </li>
+    <li>
+        Starts a timer.
+    </li>
+    <li>
+        Attempts to solve the initial configuration using the backtracker.
+    </li>
+    <li>
+        The timer is stopped and the elapsed time is recorded.
+    </li>
+    <li>
+        If the puzzle has a solution it is displayed, otherwise there is an
+        indication that it was not solvable.
+    </li>
+    <li>
+        The elapsed time and the total number of configurations generated when
+        backtracking is displayed.
+    </li>
+</ul>
+
+<h3><a name="is-valid">MagnetsConfig: isValid()</a></h3>
+
+<p>
+    Recall that <em>pruning</em> happens in
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html#isValid()" target="_blank">MagnetsConfig's isValid()</a> method.
+    This is where successor configurations that are detected to be invalid are discarded.
+    In order to receive full credit for this assignment, the <b>minimal pruning strategy</b> is as follows:
+</p>
+
+<ul>
+    <li>
+        If the cursor of the newly populated cell just completed a pairing, that pair
+        must be checked for validity.  In other words, if the cell that was just populated
+        corresponds to a <b>R</b> or <b>B</b>, the prior corresponding <b>L</b> or <b>T</b>
+        cell must be checked.  There are only three possible valid pairings:
+            <ul>
+                <li><b>+/-</b> pair</li>
+                <li><b>-/+</b> pair</li>
+                <li><b>X/X</b> pair</li>
+            </ul>
+        Any other pairing is invalid and should be immediately discarded.
+    </li>
+    <li>
+        The polarity of the newly populated cell at the cursor must be checked.  If the newly populated
+        cell was a <b>+</b> or <b>-</b>, the orthogonal cells to it cannot be the same polarity.
+        If there is a single violation this configuration should be immediately discarded.
+    </li>
+    <li>
+        When the last cell is populated, all positive/negative row/column counts must be checked.
+        Any count that is not -1 must add up exactly or else the configuration should be discarded.
+    </li>
+</ul>
+
+<p>
+    Using this minimal pruning strategy, your program should be able to solve
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/data/magnets-12.txt" target="_blank">data/magnets-12.txt</a> <b>in under 10 seconds</b>
+    (without debug printing enabled).
+    If you followed the same successor generation and validity checking as mentioned above,
+    there should be roughly <tt>181,339</tt> configurations generated.
+</p>
+
+<h3><a name="is-goal">MagnetsConfig: isGoal()</a></h3>
+
+<p>
+    The tendency in
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/doc/magnets/MagnetsConfig.html#isGoal()" target="_blank">MagnetsConfig's isGoal()</a>
+    is to overdo things and recheck for validity.  Recall this method is only called
+    by the backtracker if a configuration was already deemed to be valid.  That means if your <b>isValid()</b>
+    is fully implementing the minimal pruning strategy described above, <b>you
+    only need to check that the cursor is in the last cell of the puzzle for it to be a goal!</b>
+</p>
+
+
+<h3><a name="extra_credit">Extra Credit</a></h3>
+
+<p>
+    The minimal pruning strategy is very inefficient.  This is mainly because it waits until the
+    very last cell is populated before checking all of the positive/negative row/column counts.
+    This means you will not be able to solve the larger puzzle files (<b>magnets13-16</b>)
+    in any reasonable amount of time.
+</p>
+
+<p>
+    For 10 points extra credit, modify your implementation to use a more efficient pruning strategy.
+    </p><ul>
+    <li>
+    If you can solve <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/data/magnets-13.txt" target="_blank">data/magnets-13.txt</a>
+    in under 10 seconds, you will get 5 points extra credit.
+    </li>
+    <li>
+        If you can solve <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/data/magnets-16.txt" target="_blank">data/magnets-16.txt</a>
+        in under 2 minutes, you will get an additional 5 points extra credit.
+    </li>
+    </ul>
+    The
+    <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/output" target="_blank">output</a>'s for the last 4 puzzle files was run with the instructor solution
+    that uses an improved pruning strategy.
+<p></p>
+
+<h3><a name="lab-submission">Lab Submission</a></h3>
+<p>
+    You should zip all of the Java source files in the <tt>src</tt> directory
+    into a file named <tt>lab7.zip</tt> and submit it to the dropbox on MyCourses by the due date.
+</p>
+
+<p>
+    <b>If you did the extra credit portion of this assignment, please leave a comment with your
+    dropbox submission!</b>
+</p>
+
+
+<h2><a name="backtracking-resources">Backtracking Resources</a></h2>
+
+<p>
+    Backtracking is a concept that a lot of students have problems picking up.
+    The first hurdle is understanding what exactly is going on.
+    Recall that the
+    <a href="https://www.cs.rit.edu/~csci142/Lectures/09/backtracking.pdf" target="_blank">lecture notes</a>
+    for the map coloring problem are at your
+    disposal.  Great effort was put into making those notes so that you can understand
+    the problem and see how it is
+    <a href="https://www.cs.rit.edu/~csci142/Lectures/09/code.zip" target="_blank">implemented in Java</a>.
+    Another good resource to look at is the recitation material for this week, specifically
+    the <a href="https://www.cs.rit.edu/~csci142/Recitations/09/Code/nqueens/" target="_blank">N-Queens problem</a>.
+    The N-Queens problem using a native 2-D array representation that is somewhat similar, but not identical
+    to the Magnets problem.
+</p>
+
+<p>
+    It is very hard for even a seasoned programmer to write a configuration class
+    for a backtracker correctly on the first try.
+    It requires that you have some pretty good debugging skills (e.g. setting breakpoints
+    and analyzing code).
+</p>
+
+<p>
+    It is suggested you start with the smaller puzzle files first.  We are providing
+    a <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/data" target="_blank">data directory</a> of test puzzles for you to work with.
+    The corresponding outputs for these puzzles using the instructor solution
+    can be found in this <a href="https://www.cs.rit.edu/~csapx/Labs/07-Magnets/output" target="_blank">output directory</a>.
+</p>
+
+<p>
+    If you run into problems, make sure you use the run configurations where debug printing
+    is <b>true</b>!  The backtracker will print out every successor and whether it is valid
+    or not (using your implementation).  Finding problems with smaller puzzles should
+    prevent you needing to debug with the larger ones.
+</p>
+
+<h2><a name="grading">Grading</a></h2>
+
+The grade breakdown for this lab is as follows:
+
+<ul>
+    <li>Problem Solving: 15%</li>
+    <li>In-Lab Activity: 10%</li>
+    <li>Design: 15%</li>
+    <li>Functionality: 60% </li>
+    <li>Extra Credit: up to +10%</li>
+    <li>Code Style &amp; Documentation: up to -10%</li>
+</ul>
+
+
+
+<div id="torrent-scanner-popup" style="display: none;"></div></body></html>
