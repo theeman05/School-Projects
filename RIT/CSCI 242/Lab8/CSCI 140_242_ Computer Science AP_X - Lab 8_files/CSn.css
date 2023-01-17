@@ -1,0 +1,28 @@
+body { font-family: arial; }
+
+p { line-height: 0.5cm; }
+dt { line-height: 0.7cm; font-size: large; font-style: italic; }
+dd { line-height: 0.5cm; }
+h1 { color: maroon; }
+h2 { color: brown; }
+h3 { color: brown; }
+h4 { color: brown; }
+table { font-family: arial; }
+ol { line-height: 0.5cm; }
+ul { line-height: 0.5cm; }
+li { margin: 10px 0; }
+pre{ font-family: Andale Mono,Courier New; }
+
+code { font-family: Andale Mono,Courier New; }
+
+.pm { font-size: 14; }
+.pb { font-weight: bold; color: brown; }
+.brown { color: brown; }
+.purple { color: purple; }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0065)https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/LightsOut.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="./CSCI 140_242_ Computer Science AP_X - Lab 8_files/CSn.css">
+
+
+    <title>CSCI 140/242: Computer Science AP/X - Lab 8</title>
+</head>
+<body>
+<div style="text-align: center;">
+    <h1>
+        CSCI 140/242: Computer Science AP/X<br>
+        Lab 8 - Concentration
+    </h1>
+</div>
+
+<div style="text-align: center;">
+    <img src="./CSCI 140_242_ Computer Science AP_X - Lab 8_files/lightsout1.png" alt="no-alt" width="300">
+</div>
+
+<hr>
+
+<h2>Introduction</h2>
+
+<p>
+    <a href="https://en.wikipedia.org/wiki/Lights_Out_(game)">Lights Out</a>
+     is an electronic game in which the player attempts to turn off every light on a 5x5 board according to one simple rule: whenever a light it changed by the player, the adjacent lights are also changed.
+</p>
+
+<p>
+    In this lab you will enhance a text-based Lights Out program by
+    creating a graphical user interface (GUI) for the game so that a user
+    can play a single person version of the game by clicking on buttons.
+</p>
+
+<hr>
+
+<h2>In-Lab Portion</h2>
+
+<p>
+    As usual you have a portion of the lab due early.
+    The instructions can be found
+    <a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/inlab.pdf">here</a>.
+</p>
+
+<hr>
+
+<h2>Implementation</h2>
+You will finish implementing <code>LightsOutGUI</code> that you started in the in-lab.
+
+
+<h3>Java Documentation/Code</h3>
+<p>
+    In the preliminary lab assignment, you
+    were provided with a complete implementation of the model and a
+    text-based user interface. <em>The provided classes should not be modified except the model's <code>updateTile()</code> which you were instructed to finish for the in-lab.</em> 
+    </p><p>
+    The GUI design is entirely up to you; however, it is suggested that you look at the implementation of <code>LightsOutTUI</code> to understand how to interact with the model. The <a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/doc/index.html" target="_blank">documentation</a> for the following classes will also be particularly helpful. Note that documentation has only been generated for public fields and methods that will be used by the GUI.
+</p>
+<ul>
+        <li><a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/doc/model/LightsOutModel.html" target="_blank"><code>LightsOutModel</code></a>:
+        The game model.
+    </li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/doc/model/Tile.html" target="_blank"><code>Tile</code></a>:
+        Represents an individual light on the board.
+    </li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/doc/model/Observer.html" target="_blank"><code>Observer</code></a>: The interface for
+        observers of the model.
+    </li>
+    <li><a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/doc/tui/LightsOutTUI.html" target="_blank"><code>LightsOutTUI</code></a>:
+        The plain text UI game.
+    </li>
+</ul>
+
+<p>
+    The text-based game <code>LightsOutTUI</code> has a main class
+    and can be run directly.
+</p>
+
+<h3>Specifications</h3>
+Below are the minimum requirements for your GUI:
+<ul>
+	<li> The layout should include:
+	<ul>
+		<li> A title bar with "Lights Out" as the title.</li>
+		<li> A 5x5 grid of clickable lights </li>
+		<li> Buttons for asking for hints, starting a new random game, and loading a game from a file. </li>
+		<li> Text display(s) for indicating the number of moves made in the current game and to display any messages</li>
+		<li> A way of displaying a hint; this could be achieved through a text box, highlighting a light, or any other way you wish as long as it is intuitive. </li>
+	</ul>
+        </li><li> The user must be able to interact with the light by clicking them. </li>
+        <li> The difference between a light being on versus being off should be intuitive. You do this with colored tiles or you may choose to use images instead. </li>
+        <li> The move counter should reset when a new game starts</li>
+        <li> The user should be informed via a text display of the following:</li>
+       	<ul>
+       		<li>A new game starting</li>
+   		<li>Failure to load a file.</li>
+   		<li>The player has won the game.</li>
+   	</ul>
+	<li> The user should be able to start a new game (load or generate a random game) at anytime.</li>
+	<li> The hint button should use the model's <code>getHint()</code> method.
+	</li><li> Starting a new random game should use the model's <code>generateRandomBoard()</code> method.
+	</li><li> Files should be loaded using the <code>FileChooser</code>.
+	</li><li> There is no specification for the state of the game when the application is first started. It can always default to the same board, generated a random one, or even prevent the player from interacting until they choose to either load a game or start a random one.
+	</li></ul>
+<p></p>
+
+<p>
+    <a href="https://www.cs.rit.edu/~csapx/Labs/08-LightsOutGUI/images/demo.mp4" target="_blank">Here</a>
+    is a video that shows many of the game's features.
+</p>
+
+
+
+<h3>Using the FileChooser </h3>
+The <a href="https://openjfx.io/javadoc/19/javafx.graphics/javafx/stage/FileChooser.html"><code>FileChooser</code></a> provides a graphical way for a user to select a file from their computer which is then returned as a <code>File</code> object. Using it is fairly simple, a simple example is shown below.  The one thing you will have to figure out is how you plan on passing the <code>stage</code> you were using in <code>start()</code> to the <code>showOpenDialog</code>. 
+
+<pre><code>
+//create a new FileChooser
+FileChooser fileChooser = new FileChooser(); 
+fileChooser.setTitle("Load a game board.");
+//open up a window for the user to interact with.
+File selectedFile = fileChooser.showOpenDialog(stage); 
+</code>
+</pre>
+
+If you wish, you can specifies the initial directory that the fileChooser displays:
+<pre><code>
+//set the directory to the boards folder in the current working directory
+fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")+"/boards"));
+</code>
+</pre>
+You can also filter the files so only certain file extensions show up.
+<pre><code>
+fileChooser.getExtensionFilters().addAll( new FileChooser.ExtensionFilter("Text Files", "*.lob"));
+</code>
+</pre>
+<hr>
+<h2>Grading</h2>
+<p>
+
+</p><p>
+    The grade breakdown for this lab is as follows:
+</p><ul>
+    <li>Problem Solving Session: 15%</li>
+    <li>In-Lab Activity: 10%<br></li>
+    <li>Implementation: 65%
+        <ul>
+            <li>Design: 10% - Gui follows MVC pattern, with observers
+                of the model.
+            </li>
+            <li>Button interaction and display: 25%</li>
+            <li>Message Field notifications: 5%</li>
+            <li>Keep track of move count: 5%</li>
+            <li>New random game: 5%</li>
+            <li>Load from File: 5%</li>
+            <li>Hint: 5%</li>
+            <li>Game can be played to completion and restarted anytime: 5%</li>
+        </ul>
+    </li>
+    <li>Code Style: 7%</li>
+    <li>Use of Git for backups: 3%</li>
+</ul>
+
+
+<hr>
+<h2>Submission</h2>
+<p>
+    As always push your final copy to GitHub before the deadline
+    You should zip <b>src</b> directory, including the files that you
+    wrote as well as the ones that we provided. Submit a zip file named
+    <strong>lab08.zip</strong> to the appropriate dropbox in Assignments in
+    mycourses.
+</p>
+
+
+
+
+<div id="torrent-scanner-popup" style="display: none;"></div></body></html>
