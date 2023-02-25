@@ -1,0 +1,176 @@
+Loaded: jam-4.txt
+   0 1 2 3 4 5 
+  ------------
+0| . . O . A A 
+1| . . O . . . 
+2| X X O . . . 
+3| P P P . . Q 
+4| . . . . . Q 
+5| . . . . . Q 
+
+h(int)              -- hint next move
+l(oad) filename     -- load new puzzle file
+s(elect) r c        -- select cell at r, c
+q(uit)              -- quit the game
+r(eset)             -- reset the current game
+> l sdfdsf
+Failed to load: sdfdsf
+   0 1 2 3 4 5 
+  ------------
+0| . . O . A A 
+1| . . O . . . 
+2| X X O . . . 
+3| P P P . . Q 
+4| . . . . . Q 
+5| . . . . . Q 
+
+> l data/jam/jam-2.txt
+Loaded: jam-2.txt
+   0 1 2 3 
+  --------
+0| . P P P 
+1| . B B O 
+2| . . A O 
+3| X X A O 
+
+> h
+Next step!
+   0 1 2 3 
+  --------
+0| . P P P 
+1| B B . O 
+2| . . A O 
+3| X X A O 
+
+> s 2 2
+Selected (2, 2)
+   0 1 2 3 
+  --------
+0| . P P P 
+1| B B . O 
+2| . . A O 
+3| X X A O 
+
+> s 1 2
+Moved from (2, 2)  to (1, 2)
+   0 1 2 3 
+  --------
+0| . P P P 
+1| B B A O 
+2| . . A O 
+3| X X . O 
+
+> h
+Next step!
+   0 1 2 3 
+  --------
+0| P P P . 
+1| B B A O 
+2| . . A O 
+3| X X . O 
+
+> h
+Next step!
+   0 1 2 3 
+  --------
+0| P P P O 
+1| B B A O 
+2| . . A O 
+3| X X . . 
+
+> h
+Next step!
+   0 1 2 3 
+  --------
+0| P P P O 
+1| B B A O 
+2| . . A O 
+3| . X X . 
+
+> s 3 1
+Selected (3, 1)
+   0 1 2 3 
+  --------
+0| P P P O 
+1| B B A O 
+2| . . A O 
+3| . X X . 
+
+> s 3 3
+Moved from (3, 1)  to (3, 3)
+   0 1 2 3 
+  --------
+0| P P P O 
+1| B B A O 
+2| . . A O 
+3| . . X X 
+
+> h
+Already solved!
+   0 1 2 3 
+  --------
+0| P P P O 
+1| B B A O 
+2| . . A O 
+3| . . X X 
+
+> h
+Already solved!
+   0 1 2 3 
+  --------
+0| P P P O 
+1| B B A O 
+2| . . A O 
+3| . . X X 
+
+> r
+Loaded: jam-2.txt
+   0 1 2 3 
+  --------
+0| . P P P 
+1| . B B O 
+2| . . A O 
+3| X X A O 
+
+Puzzle reset!
+   0 1 2 3 
+  --------
+0| . P P P 
+1| . B B O 
+2| . . A O 
+3| X X A O 
+
+> s 0 0
+No car at (0, 0)
+   0 1 2 3 
+  --------
+0| . P P P 
+1| . B B O 
+2| . . A O 
+3| X X A O 
+
+> s 1 1
+Selected (1, 1)
+   0 1 2 3 
+  --------
+0| . P P P 
+1| . B B O 
+2| . . A O 
+3| X X A O 
+
+> s 2 1
+Can't move from (1, 1)  to (2, 1)
+   0 1 2 3 
+  --------
+0| . P P P 
+1| . B B O 
+2| . . A O 
+3| X X A O 
+
+> utyruy
+h(int)              -- hint next move
+l(oad) filename     -- load new puzzle file
+s(elect) r c        -- select cell at r, c
+q(uit)              -- quit the game
+r(eset)             -- reset the current game
+> q
